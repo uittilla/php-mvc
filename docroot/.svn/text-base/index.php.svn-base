@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * All calls redirected via this file (mod_rewrite apache .htaccess)
+ * @author M Ibbotson
+ * @package WEBCMS
+ */
+
+ session_start();
+
+ /** include the init.php file for system wide config */
+ include 'includes/init.php';
+
+ /** load up the template */
+ if(!empty($_GET['rt'])) { 
+
+	 $bits = explode("/", $_GET['rt']);	
+	 $registry->template = new XTemplate($bits[0] . ".tpl", TEMPLATE_PATH, '');
+	
+	 if(isset($_GET['override']) || isset($_POST['override'])){
+		  $registry->template->assign('override', '?override=1');
+	      $registry->template->assign('ride', '1');
+	 }
+	
+	 /** host.com/variable1/value1/variable2/value2 maps to $_GET['variable1'] ... */
+	 for($i=1, $cnt = count($bits); $i<$cnt; $i++) {
+	    $i % 2 == 0 ? $_GET[$bits[$i-1]] = $bits[$i] : '';
+	 }
+	 	
+ } else { 
+	$registry->template = new XTemplate("index.tpl", TEMPLATE_PATH, ''); 
+	
+	if(isset($_GET['override']) || isset($_POST['override'])){
+		$registry->template->assign('override', '?override=1');
+		$registry->template->assign('ride', '1');
+	}
+ }
+
+
+ /** load the controller */
+ $registry->router->loader();
+
+?>
+

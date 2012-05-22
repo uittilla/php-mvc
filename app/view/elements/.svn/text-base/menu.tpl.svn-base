@@ -1,0 +1,12 @@
+<div>
+  <ul id="menu">
+   <li><a href="/" title="Home">Home</a></li>
+   <li><a href="/proxy" title="Proxy">Proxy</a></li>
+   <li><a href="/sites" title="Sites">Sites</a></li>
+   <li><a href="/snmp" title="Snmp">Snmp</a></li>
+   <li><a href="/" title="Home">Home</a></li>
+   <li><a href="/" title="Home">Home</a></li>
+   <li><a href="/" title="Home">Home</a></li>
+   <li><a href="/" title="Home">Home</a></li>   
+  </ul>
+</div>

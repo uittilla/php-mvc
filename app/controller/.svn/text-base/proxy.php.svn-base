@@ -1,0 +1,131 @@
+<?php
+/**
+ * Index controller
+ * 
+ * Some blurp
+ * 
+ * @package ...
+ * @author M Ibbotson
+ */
+class proxyController extends Controller 
+{   
+ 
+  private $sim   = "SELECT  sale_id 
+	                FROM    sales 
+	                WHERE   is_simulcast='X' 
+	                ORDER   BY sale_id";
+					
+  private $proxy = "SELECT
+                    	    SUBSTR(s.external_id,1,15) AS oscar_id,
+                        	SUBSTR(s.name,1,30) AS sale_name,
+                        	TO_CHAR(s.begin_datetime,'YYYY-MM-DD') AS sale_date,
+                        	SUBSTR(vw.auction_id,1,4) AS auction_id_,
+                        	sv.run_number AS lot_,
+                        	SUBSTR(vw.login,1,20) AS login_,
+                        	SUBSTR(u.name,1,25) AS company_,
+                        	v.vin,
+                        	SUBSTR(v.reg_plate,1,12) AS reg_plate_,
+                        	vw.proxy_bid,
+                        	TO_CHAR(vw.update_timestamp,'YYYY-MM-DD HH24:MI:SS') AS update_ts,
+                        	TO_CHAR(vw.proxy_timestamp,'YYYY-MM-DD HH24:MI:SS') AS proxy_ts_
+               		FROM
+                       	    sales s,
+                        	sale_vehicles sv,
+                        	users u,
+                        	vehicles v,
+                        	vehicle_watches vw
+               		WHERE
+                    	    vw.sale_id = s.sale_id
+                	AND     vw.item_id = sv.item_id
+                	AND     vw.sale_id = sv.sale_id
+                	AND     vw.login = u.login
+                	AND     vw.item_id = v.item_id
+                	AND     s.SALE_ID=?
+                	AND     vw.PROXY_BID is not null";
+
+  /**
+   * Display information on sets held within DEV, STAGING and LIVE 
+   * List its dependancies (if any)
+   * @package ...
+   * @author: M Ibbotson
+   */
+   public function index() {
+   	
+	 $this->getSimulcastSales();
+	 
+	 #print snmp2_get("10.1.1.114", "S3!m4nXb7", "sysDescr.0");
+	 
+     if(!empty($_GET['saleId']))
+	 {     
+     	$this->getProxyBidders();
+     }	
+	
+     $this->tpl->parse('main.body.default');
+     $this->tpl->display();
+   }
+   
+   public function getSimulcastSales()
+   {   
+     try{
+     	if($this->db)
+     	{
+          foreach ($this->db->query($this->sim) as $row){
+	   	  	
+			  $this->tpl->assign('row', $row);
+			 
+			  if(!empty($_GET['saleId']))
+			  {
+			 	if($_GET['saleId'] == $row['SALE_ID'])
+				 {
+				 	$this->tpl->parse('main.body.simulcast.sale.selected');			
+				 }
+			  }			 
+			
+			  $this->tpl->parse('main.body.simulcast.sale');
+			  
+   	       }		 
+	       
+	       $this->tpl->parse('main.body.simulcast');
+		}
+	 } 
+	  catch (PDOException $e)
+	 {	 
+        $this->tpl->assign('row', $e->getMessage());
+		$this->tpl->parse('main.body.fail');		
+     }
+   }
+   
+   public function getProxyBidders()
+   {
+   	   try{
+   	   	 $stmt = $this->db->prepare($this->proxy);
+	     $stmt->bindParam(1, $_GET['saleId']);
+	   
+	     if($stmt->execute())
+	     {
+	   	   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		 
+	   	   if(count($results) > 0)
+		   {   
+		   	  foreach($results as $row){
+		   	     $this->tpl->assign('row', $row);
+			     $this->tpl->parse('main.body.results.item');
+	  	   	  }
+		   }
+		   else 
+		   {
+		   	  $this->tpl->parse('main.body.results.noresults');
+		   }
+		   
+           $this->tpl->parse('main.body.results');
+	     }
+	   }
+	   catch (PDOException $e)
+       {   
+          $this->tpl->assign('row', $e->getMessage());
+          $this->tpl->parse('main.body.fail');        
+       } 
+   }
+   
+}
+

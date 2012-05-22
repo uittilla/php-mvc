@@ -1,0 +1,14 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+
+    <fieldset style="margin:20px">
+     <div class="warning" style="text-indent:15px">
+        404 File not found
+     </div>
+      <br /><center> {file} was not found on this server </center> <br />
+    </fieldset>
+
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->

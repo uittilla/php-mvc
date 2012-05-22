@@ -1,0 +1,32 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+
+ 
+   <!-- BEGIN: loop -->
+     <table border="1" width="100%">                                      
+     <!-- BEGIN: entry -->
+       <tr>
+           <td>{v.AUCTION_ID|red}</td>
+           <td>{v.SALE_ID|blue}</td>
+           <td>{v.SALE_TYPE}</td>
+           <td>{v.IS_OPEN}</td>
+           <td>{v.EXTERNAL_ID}</td>
+           <td>{v.VEHICLE_COUNT}</td>
+           <td>{v.VCODE}</td>
+           <td>{v.CID}</td>
+           <td>{v.WEBSITE_ID}</td>
+           <td>{v.STARTDATE}</td>
+           <td>{v.ENDDATE}</td>
+           <td>{v.IS_ACTIVE}</td>
+           <td>{v.CP}</td>
+           <td>{v.SV}</td>
+      </tr>
+     <!-- END: entry -->
+     </table> 
+   <!-- END: loop -->
+ 
+ 
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->

@@ -1,0 +1,124 @@
+<?php
+/**
+ * Index controller
+ * 
+ * Some blurp
+ * 
+ * @package ...
+ * @author M Ibbotson
+ */
+class sitesController extends Controller 
+{   
+
+   public $count=0;
+
+   private $sites = Array (
+		   "www.manheim.co.uk", 
+		   "www.manheim.fr", 
+		   "www.manheim.de",
+		   "www.manheim.pt",
+		   "www.manheim.be",
+		   "www.manheim.it",
+		   "www.falfleetvo.com",
+		   "www.chryslerespana.com",
+		   "www.fiat-cyberstock.com",
+		   "www.hyundaiespana.com",
+		   "www.mercedes-benz-industrialesespana.com",
+		   "www.nreestreno.com",
+		   "www.peugeot-cyberstock.com",
+		   "www.spainusedvans.com",
+		   "www.stockempleados.com",
+		   "www.tfs-cars.com",
+		   "www.toyotaespana.com",
+		   "www.ventesvo.ingcarlease.fr",
+		   "staging.www.falfleetvo.com",
+		   "staging.www.chryslerespana.com",
+		   "staging.www.fiat-cyberstock.com",
+		   "staging.www.hyundaiespana.com",
+		   "staging.www.mercedes-benz-industrialesespana.com",
+		   "staging.www.nreestreno.com",
+		   "staging.www.peugeot-cyberstock.com",
+		   "staging.www.spainusedvans.com",
+		   "staging.www.stockempleados.com",
+		   "staging.www.tfs-cars.com",
+		   "staging.www.toyotaespana.com",
+		   "staging.www.ventesvo.ingcarlease.fr",
+		   "staging.www.manheim.co.uk", 
+		   "staging.www.manheim.fr", 
+		   "staging.www.manheim.de",
+		   "staging.www.manheim.pt",
+		   "staging.www.manheim.be",
+		   "staging.www.manheim.it",
+		   "dev.www.manheim.co.uk", 
+		   "dev.www.manheim.fr", 
+		   "dev.www.manheim.de",
+		   "dev.www.manheim.pt",
+		   "dev.www.manheim.be",
+		   "dev.www.manheim.it",
+		   "dev.www.falfleetvo.com",
+		   "dev.www.chryslerespana.com",
+		   "dev.www.fiat-cyberstock.com",
+		   "dev.www.hyundaiespana.com",
+		   "dev.www.mercedes-benz-industrialesespana.com",
+		   "dev.www.nreestreno.com",
+		   "dev.www.peugeot-cyberstock.com",
+		   "dev.www.spainusedvans.com",
+		   "dev.www.stockempleados.com",
+		   "dev.www.tfs-cars.com",
+		   "dev.www.toyotaespana.com",
+		   "dev.www.ventesvo.ingcarlease.fr"
+		   );
+  /**
+   * Display information on sets held within DEV, STAGING and LIVE 
+   * List its dependancies (if any)
+   * @package ...
+   * @author: M Ibbotson
+   */ 
+   public function index() 
+   {
+     foreach($this->sites as $site)
+	 {	 
+	 	$this->tpl->assign('site', $site);
+		
+	 	if($this->isDomainAvailible($site))
+		{   # UP
+			$this->tpl->assign('MSG', 'Up');
+			$this->tpl->assign('color', 'green');
+		}
+		 else 
+		{   # Down
+			$this->tpl->assign('MSG', 'Down');
+			$this->tpl->assign('color', 'red');
+		}
+		
+		$this->tpl->parse('main.body.sites.site');
+	 }
+	 
+	 $this->tpl->parse('main.body.sites');
+	 $this->tpl->display();
+   }
+   
+   public function isDomainAvailible($domain)
+   {
+       //check, if a valid url is provided
+       if(!filter_var("http://$domain", FILTER_VALIDATE_URL))
+       {
+          return false;
+       }
+
+       //initialize curl
+       $curlInit = curl_init($domain);
+       curl_setopt($curlInit,CURLOPT_CONNECTTIMEOUT,10);
+       curl_setopt($curlInit,CURLOPT_HEADER,true);
+       curl_setopt($curlInit,CURLOPT_NOBODY,true);
+       curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
+
+       //get answer
+       $response = curl_exec($curlInit);
+       curl_close($curlInit);
+
+       return $response ? true : false;
+	}
+
+}
+

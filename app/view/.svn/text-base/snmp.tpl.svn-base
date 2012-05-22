@@ -1,0 +1,80 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+<div class="article">
+  <!-- BEGIN: hosts -->
+    <!-- BEGIN: host -->
+    <fieldset> 
+     <legend><a href="/snmp/host/{key}">{key}</a></legend>
+      <table border="0">
+       <tr><td>sysDescr</td><td>{sysDescr}</td></tr>
+       <tr><td>ifUpTime</td><td>{ifUpTime}</td></tr>
+       <tr><td>Active users</td><td>{users}</td></tr>
+       <tr><td>ifDescr</td><td>
+              <ul> 
+                  <li>{ifDescr.0}</li>
+                  <li>{ifDescr.1}</li>
+               </ul>        
+       </td></tr>
+       <tr><td>ifOperStatus</td><td>
+                  <ul> 
+                      <li>{ifOperStatus.0}</li>
+                      <li>{ifOperStatus.1}</li>
+                   </ul>
+       </td></tr>
+       <tr><td>ifLastChange</td><td>
+                    <ul> 
+                      <li>{ifLastChange.0}</li>
+                      <li>{ifLastChange.1}</li>
+                    </ul>
+       </td></tr>
+      <!--  ifAdminStatus {ifAdminStatus} <br />
+       ifIndex {ifIndex} <br /> -->
+      </table> 
+    </fieldset> 
+    <!-- END: host -->
+  <!-- END: hosts -->
+  
+  <!-- BEGIN: advanced -->
+	  <table border="0">
+	  <tr><th colspan="2">{host}</th></tr>
+	  <!-- BEGIN: load -->
+	   <tr><th colspan="2">Load</th></tr>
+	    <!-- BEGIN: entry -->
+	      <tr><td>{key}</td><td>{val}</tr>
+	    <!-- END: entry -->
+	  <!-- END: load -->
+	  
+	  <!-- BEGIN: cpu -->
+	  <tr><th colspan="2">CPU</th></tr>
+	    <!-- BEGIN: entry -->
+	      <tr><td>{key}</td><td>{val}</tr>
+        <!-- END: entry -->
+	  <!-- END: cpu -->
+	  
+	  <!-- BEGIN: disk -->
+	    <tr><th colspan="2">Disk</th></tr>
+	    <!-- BEGIN: entry -->
+	      <tr><td>{key}</td><td>{val}</tr>
+        <!-- END: entry -->
+	  <!-- END: disk -->
+	  
+	  <!-- BEGIN: eth -->
+        <tr><th colspan="2">If</th></tr>
+        <!-- BEGIN: entry -->
+          <tr><td>{key}</td><td>{val}</tr>
+        <!-- END: entry -->
+      <!-- END: eth -->
+	  </table>
+  <!-- END: advanced -->
+</div>
+<div class="feature">
+ <!-- BEGIN: agents -->
+   <!-- BEGIN: agent -->
+   <a href="/snmp/host/{key}">{key}</a><br />
+   <!-- END: agent -->
+ <!-- END: agents -->
+</div> 
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->

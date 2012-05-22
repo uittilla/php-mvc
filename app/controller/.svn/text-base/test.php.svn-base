@@ -1,0 +1,23 @@
+<?php
+/**
+ * Index controller
+ * 
+ * Some blurp
+ * 
+ * @package ...
+ * @author M Ibbotson
+ */
+class testController extends Controller 
+{   
+  /**
+   * Display information on sets held within DEV, STAGING and LIVE 
+   * List its dependancies (if any)
+   * @package ...
+   * @author: M Ibbotson
+   */
+   public function index() {
+     $this->tpl->parse('main.body.default');
+     $this->tpl->display();
+   }
+}
+

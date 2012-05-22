@@ -1,0 +1,56 @@
+<?php
+/**
+ * Index controller
+ * 
+ * Some blurp
+ * 
+ * @package ...
+ * @author M Ibbotson
+ */
+class indexController extends Controller 
+{	
+  /**
+   * Display information on sets held within DEV, STAGING and LIVE 
+   * List its dependancies (if any)
+   * @package ...
+   * @author: M Ibbotson
+   */
+  
+   public $sales = "SELECT 
+                   auction_id, 
+                   sale_id, 
+                   sale_type, 
+                   is_open o, 
+                   external_id, 
+                   vehicle_count, 
+                   consignor_id vcode, 
+                   cyberlot_id cid, 
+                   website_id, 
+                   TO_CHAR(begin_datetime,'YYYY-MM-DD HH24:MI:SS') startDate, 
+                   end_datetime endDate, 
+                   is_active, 
+                   is_cyberauction CP, 
+                   is_simulcast SV 
+            FROM 
+                   sales 
+            WHERE
+                   TRUNC(begin_datetime) >= TO_DATE( '2009-09-01' , 'YYYY-MM-DD') 
+            AND    auction_id like '%' 
+            AND    TRUNC(begin_datetime) < SYSDATE+28  
+            ORDER  BY 4";
+  
+   public function index() {
+     $this->tpl->parse('main.body.default');
+	 
+	 $test = Array(1=>"one","two"=>"two", 3=>3, "five"=>"six", 6=>"5");
+
+	 foreach ($this->db->query($this->sales) as $v){
+        $this->tpl->assign('v', $v);
+		$this->tpl->parse('main.body.loop.entry');
+	 }
+	 $this->tpl->parse('main.body.loop');
+	 
+	 $this->tpl->display();
+   }
+}
+?>

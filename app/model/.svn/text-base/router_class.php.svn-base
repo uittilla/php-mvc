@@ -1,0 +1,134 @@
+<?php
+/**
+ * Router
+ * 
+ * Maps the route and calls the required class and action
+ * @author M Ibbotson
+ * @package WEBCMS
+*/
+class Router 
+{
+	// private
+	/**
+	 * registry object 
+	 * @name $registry
+	 */
+	private $registry;         
+	/**
+	 * Path to the controller 
+	 * @name $path 
+	 */
+	private $path; 	           
+	
+	// public
+	/**
+	 * File to load 
+	 * @name $file  
+	 */
+	public $file;
+	/** 
+	 * Class to load
+	 * @name $controller
+	 */              
+	public $controller;
+	/**
+	 * Method to call (index by default)  
+	 * @name $action 
+	 */        
+	public $action = "index";  
+	
+	/**
+	 * Create Router object
+	 * @access public 
+	 * @return void
+	 */
+	public function __construct($registry) { $this->registry = $registry; }
+	
+	/**
+	 * Set the controller directory path
+	 * @param string $path
+	 * @access public
+	 * @return void
+	 */
+	function path($path) 
+	{
+		// check if directory
+		if (is_dir($path) == false) {
+			throw new Exception ('Invalid controller path: `' . $path . '`');
+		}
+		$this->path = $path;
+	}
+	
+	/**
+	 * Load the controller
+	 * 
+	 * Ensure the controller exists, and is callable. 
+	 * Call the controller if true. Throw a 404 if not
+	 * @access public
+	 * @return void
+	 */
+	 public function loader() 
+	 {
+		// check the route
+		$this->getController();
+	
+		/* if the file is not there bounce to errors */
+		if (is_readable($this->file) == false) {
+			$parts = explode('/', $_GET['rt']);
+			$_SESSION['badFile'] = $parts[0];
+			header("Location: /error");
+			exit;
+			//die("404 File not found");
+		}
+	
+	    /* include the controller (see getController) */
+		include $this->file;
+	
+		/* a new controller class instance */
+		$class = $this->controller . 'Controller';
+		$controller = new $class($this->registry);
+	        
+		// check if the action is callable 
+		if (is_callable(array($controller, $this->action)) == false) {
+			$action = 'index';			
+		}else {
+			$action = $this->action;			
+		}
+		/* run the action (always index in this case)*/
+		$controller->$action();
+	 }
+	
+	/**
+	 * Get the controller
+	 * 
+	 * Parse the route $_GET['rt'] and load the first element.
+	 * First element is the controller. If no element call index
+	 * @access private
+	 * @return void
+	 */
+	 private function getController() 
+	 {
+		/** @name $route  get the route from the url */ 
+		$route = (empty($_GET['rt'])) ? '' : $_GET['rt'];
+	
+		if (empty($route))	{ $route = 'index'; }
+		else {
+			// get the parts of the route [0] controller
+			$parts = explode('/', $route);
+			$this->controller = $parts[0];
+			
+			/*if(isset( $parts[1])) { $this->action = $parts[1]; }*/
+		}
+	
+		if (empty($this->controller)) 
+		{
+			$this->controller = 'index';
+		}
+	
+		/* Get action */
+		/*if (empty($this->action)) { $this->action = 'index'; }*/
+		/* set the file path */
+		$this->file = $this->path .'/'. $this->controller . '.php';
+	 }
+}
+?>

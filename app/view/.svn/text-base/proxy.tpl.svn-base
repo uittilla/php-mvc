@@ -1,0 +1,51 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+
+  <!-- BEGIN: fail -->
+   <fieldset><legend>SQL Error</legend>
+    {row}
+   </fieldset>
+  <!-- END: fail -->
+
+  <!-- BEGIN: simulcast -->
+  <form method="get" action="/proxy">
+
+	 <fieldset> 
+	   <legend>Simulcast SaleId</legend>
+	     <select name="saleId">
+	      <!-- BEGIN: sale -->
+	          <option value="{row.SALE_ID}"<!-- BEGIN: selected --> selected='selected' <!-- END: selected -->>{row.SALE_ID}</option>
+	      <!-- END: sale -->
+	      </select>
+	      <input type="submit" value="Go" />
+	  </fieldset>
+	</form>
+  <!-- END: simulcast -->
+
+  <!-- BEGIN: results -->
+   <table border="1" with="100%">
+    <!-- BEGIN: item -->
+      <tr>
+        <td>{row.REG_PLATE_}</td>
+        <td>{row.LOT_}</td>
+        <td>{row.SALE_DATE}</td>
+        <td>{row.PROXY_TS_}</td>
+        <td>{row.LOGIN_}</td>
+        <td>{row.VIN}</td>
+        <td>{row.UPDATE_TS}</td>
+        <td>{row.OSCAR_ID}</td>  
+        <td>{row.COMPANY_}</td>
+       </tr>
+    <!-- END: item -->
+    
+    <!-- BEGIN: noresults -->
+      <tr><td>No results found</td></tr>
+    <!-- END: noresults -->
+    
+   </table>
+  <!-- END: results -->
+
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->

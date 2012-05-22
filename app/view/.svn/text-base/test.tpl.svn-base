@@ -1,0 +1,7 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->

@@ -1,0 +1,23 @@
+<!-- BEGIN: main -->
+{FILE "elements/header.tpl"}
+<!-- BEGIN: body -->
+
+  <!-- BEGIN: sites -->
+   <table border="0" width="100%">
+   <tr><th>Site</th<th>Status</th></tr>
+    <!-- BEGIN: site  -->
+     <tr>
+        <td align="left" style="border-bottom:1px inset silver">
+          <a href="http://{site}" target="_blank">{site}</a>
+        </td>
+        <td>
+         <span class="{color}">{MSG}</span>
+        </td>
+     </tr>
+    <!-- END: site -->
+    </table>
+   <!-- END: sites -->
+
+<!-- END: body -->
+{FILE "elements/footer.tpl"}
+<!-- END: main -->
