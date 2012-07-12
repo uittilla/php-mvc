@@ -9,15 +9,15 @@
 abstract class Controller 
 {
 	
-	/**
-	 * Create a list of files available to form a change set 
-	 * Base class constructor is called 
-	 * Child class omits a _constructor method to do this
-	 * @access private
-	 * @return void
-	 * @param mixed $_POST
-	 */ 
-    function __construct($register) {
+   /**
+   * Create a list of files available to form a change set 
+   * Base class constructor is called 
+   * Child class omits a _constructor method to do this
+   * @access private
+   * @return void
+   * @param mixed $_POST
+   */ 
+   public function __construct($register) {
 	   $this->register = $register;
 	   $this->tpl      = $register->template;
 	   $this->db       = $register->db;
