@@ -52,22 +52,22 @@ class Router
 	 * @return void
 	 */
 	public function route() {
-		$this->file = join("", array($this->path, $this->controller, ".php"));
+	    $this->file = join("", array($this->path, $this->controller, ".php"));
 
 	    if (is_readable($this->file) === false) {                             # does the file exists ?
 	        header("Location: /error/bad/" . $this->controller);              # redirect 404 (errors exist as I put it there)
-			exit;                                                             # quit out of here
+		   exit;                                                          # quit out of here
 		}
 
 	    include_once($this->file);                                            # we get here so include the file
-        $controller = new $this->class($this->registry);                      # instantiate it (Base class constructor)
+            $controller = new $this->class($this->registry);                      # instantiate it (Base class constructor)
         
-        if(is_callable(array($controller, 'index')) === false ) {             # index is abstract so should be ALWAYS present
+            if(is_callable(array($controller, 'index')) === false ) {             # index is abstract so should be ALWAYS present
         	header("Location: /error/bad/" . $this->controller);              # redirect 404 (errors exist as I put it there)
         	exit;                                                             # quit out of here
-        } 
+            } 
  
-        $controller->index();
+            $controller->index();
 	}
 }
 ?>
