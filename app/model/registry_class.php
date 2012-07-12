@@ -4,7 +4,7 @@
  * 
  * Store application variables in the registry
  * @author M Ibbotson
- * @package WEBCMS
+ * @package MVC
 */
 class Registry 
 {
