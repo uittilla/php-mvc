@@ -6,7 +6,7 @@
  * Revamp of old way inspired by my (PERL) way of doing it
  * Kudos to C Colbourn for that
  * @author M Ibbotson
- * @package WEBCMS
+ * @package MVC
 */
 class Router
 {
