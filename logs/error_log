@@ -1,0 +1,12 @@
+[Tue Apr 16 16:31:24 2013] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
+PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+[Tue Apr 16 16:31:24 2013] [notice] Apache/2.2.22 (Ubuntu) mod_ssl/2.2.22 OpenSSL/1.0.1 PHP/5.3.10-1ubuntu3.6 with Suhosin-Patch configured -- resuming normal operations
+[Tue Apr 16 16:32:49 2013] [notice] caught SIGTERM, shutting down
+[Tue Apr 16 16:32:50 2013] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
+PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+[Tue Apr 16 16:32:50 2013] [notice] Apache/2.2.22 (Ubuntu) mod_ssl/2.2.22 OpenSSL/1.0.1 PHP/5.3.10-1ubuntu3.6 with Suhosin-Patch configured -- resuming normal operations
+[Tue Apr 16 16:36:54 2013] [notice] caught SIGTERM, shutting down
+[Tue Apr 16 16:36:55 2013] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
+PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/mongo.so' - /usr/lib/php5/20090626+lfs/mongo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[Tue Apr 16 16:36:55 2013] [notice] Apache/2.2.22 (Ubuntu) mod_ssl/2.2.22 OpenSSL/1.0.1 PHP/5.3.10-1ubuntu3.6 with Suhosin-Patch configured -- resuming normal operations

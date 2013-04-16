@@ -1,0 +1,9 @@
+[Tue Apr 16 16:33:00 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:36:59 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:01 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:01 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:02 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:02 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:02 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:02 2013] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Mongo' not found in /home/www/php-mvc/app/model/db_class.php on line 23
+[Tue Apr 16 16:37:49 2013] [error] [client 127.0.0.1] PHP Notice:  Undefined index: db in /home/www/php-mvc/app/model/registry_class.php on line 33

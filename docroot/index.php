@@ -64,7 +64,7 @@
 		 } 
 		 
 		 /** get db instance **/
-		 $registry->db = db::getInstance('dbuk');                                          # DB instance
+		 //$registry->db = db::getInstance('dbuk');                                          # DB instance
 		 
 		 /** load the router */
 		 $registry->router = new router($registry, CONTROLLER_PATH);                       # Load the router.

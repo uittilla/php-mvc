@@ -1,0 +1,34 @@
+#!/bin/bash
+
+export APP_BASE=$(dirname $0)
+export SERVER_NAME="php-simple-mvc-local.com"
+export APPLICATION_ENV="development"
+export APPLICATION_ENVIRONMENT="development"
+
+LIB=$(find /usr/lib -name '*mod_env*')
+export HTTP_LIBS=$(dirname $LIB)
+
+if [ -x /usr/sbin/apache2 ]
+then 
+   HTTP_BINARY="/usr/sbin/apache2";
+elif [ -x /usr/sbin/httpd2 ]
+then
+   HTTP_BINARY="/usr/sbin/httpd2";
+else
+   HTTP_BINARY="/usr/sbin/httpd";
+fi
+
+$APP_BASE/stop
+
+try_start() {
+    name="$1"; shift
+    command="$1"; shift
+
+    echo "Starting $name..."
+    if bash -c "$command"; then echo " OK."; else echo " ERROR."; fi
+}
+
+(
+ try_start "Application" \
+   "$HTTP_BINARY -d `pwd` -D seomoz -D DEV -f $APP_BASE/conf/httpd.conf"
+)   
